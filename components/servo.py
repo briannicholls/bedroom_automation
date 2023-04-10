@@ -26,4 +26,10 @@ class Servo:
   def close(self):
     self.set_pulse_width(1000)
 
-  
+  def open_blinds():
+    # TODO - full
+    print('opening blinds')
+
+  def close_blinds():
+    # TODO - full closing sequence
+    print('closing blinds')
