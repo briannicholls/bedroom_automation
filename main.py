@@ -5,7 +5,7 @@ import utime
 DAYLIGHT_THRESHOLD = 20000
 
 def press_fan_power_button():
-  solenoid_relay.toggle()
+  solenoid_relay.value(1)
   utime.sleep(0.7)
   solenoid_relay.value(0)
 
