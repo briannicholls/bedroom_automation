@@ -1,5 +1,5 @@
 from machine import PWM, Pin
-
+import utime
 class Servo:
 
   # initialize with GPIO pin
@@ -26,10 +26,14 @@ class Servo:
   def close(self):
     self.set_pulse_width(1000)
 
-  def open_blinds():
-    # TODO - full
+  def open_blinds(self):
     print('opening blinds')
+    self.open()
+    utime.sleep(2)
+    self.stop()
 
   def close_blinds():
-    # TODO - full closing sequence
     print('closing blinds')
+    self.close()
+    utime.sleep(2)
+    self.stop()

@@ -20,28 +20,18 @@ def activate_solenoid():
   utime.sleep(0.5)
   solenoid_relay.value(0)
 
-# Check if user is pressing the fan power button
-def is_fan_power_button_pressed():
-  return not fan_power_button.value()
-
 blinds_state = 0 # 1=open, 0=closed
+
+fan_power_button.on_press(activate_solenoid)
 
 # main loop
 while True:
 
-  # Check if user disabled daylight checking
+  # Check if user disabled daylight checking, otherwise begin checking
   if photoresistor.is_checking_daylight and not(daylight_check_switch):
     photoresistor.stop_checking_daylight()
   elif not(photoresistor.is_checking_daylight) and daylight_check_switch:
-    photoresistor.start_checking_daylight()
-
-  # Check if user is pressing the fan power button
-  if is_fan_power_button_pressed():
-    activate_solenoid()
-
-    # Debounce the button press
-    while is_fan_power_button_pressed():
-      utime.sleep(0.2)
+    photoresistor.start_checking_daylight(DAYLIGHT_THRESHOLD, blinds_state, servo_motor)
 
 
   # Check if user is pressing the blinds button

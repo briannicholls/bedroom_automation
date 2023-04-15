@@ -6,6 +6,7 @@ class Photoresistor:
   def __init__(self, pin) -> None:
     self.control = ADC(Pin(pin))
     self.is_checking_daylight = False
+    self.servo = None # servo to control
 
   def read_value(self):
     return self.control.read_u16()
@@ -16,17 +17,20 @@ class Photoresistor:
 
     if is_daylight and blinds_state == 0:
         print('opening blinds')
+        self.servo.open_blinds()
     elif not is_daylight and blinds_state == 1:
         print('closing blinds')
+        self.servo.close_blinds()
 
   def _daylight_loop(self, daylight_threshold, blinds_state):
       while self.is_checking_daylight:
           self.check_daylight(daylight_threshold, blinds_state)
           utime.sleep(10 * 60)  # Sleep for 10 minutes
 
-  def start_checking_daylight(self, daylight_threshold, blinds_state):
+  def start_checking_daylight(self, daylight_threshold, blinds_state, servo):
       print('starting daylight check')
       self.is_checking_daylight = True
+      self.servo = servo
       _thread.start_new_thread(self._daylight_loop, (daylight_threshold, blinds_state))
 
   def stop_checking_daylight(self):
