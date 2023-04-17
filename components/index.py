@@ -3,12 +3,13 @@ from servo import Servo
 from photoresistor import Photoresistor
 from button import Button
 from switch import Switch
+from pir_sensor import PIRSensor
 
 ###########
 # Sensors #
 ###########
 
-pir_sensor     = Pin(16, Pin.IN)
+pir_sensor     = PIRSensor(16, Pin.IN)
 photoresistor  = Photoresistor(26)
 
 ##############

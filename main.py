@@ -1,3 +1,6 @@
+import utime
+from constants import *
+
 # Import all hardware components
 from components.index import (
   photoresistor,
@@ -10,17 +13,11 @@ from components.index import (
   blinds_close_button
 )
 
-import utime
-
-# Define brightness to be considered daylight. 16-bit, 0=brightest, 65536=darkest
-DAYLIGHT_THRESHOLD = 20000
-
+# Solenoid sequence for pressing the fan power button
 def activate_solenoid():
   solenoid_relay.value(1)
   utime.sleep(0.5)
   solenoid_relay.value(0)
-
-blinds_state = 0 # 1=open, 0=closed
 
 # Set the on_press callback for the manual fan button
 fan_power_button.set_on_press_callback(activate_solenoid)
