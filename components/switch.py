@@ -20,6 +20,10 @@ class Switch:
 
   def set_on_callback(self, on_on):
     self._on_on = on_on
+    if not self.value():  # Assuming switch is active-low (on when pulled to GND)
+      on_on()
 
   def set_off_callback(self, on_off):
     self._on_off = on_off
+    if self.value():  # Assuming switch is active-low (off when pulled to VCC)
+      on_off()
