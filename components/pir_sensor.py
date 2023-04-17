@@ -26,3 +26,8 @@ class PIRSensor:
 
   def set_on_no_motion_callback(self, on_no_motion):
     self._on_no_motion = on_no_motion
+
+  def time_since_last_motion(self):
+    if self.last_motion_timestamp is None:
+      return None
+    return utime.time() - self.last_motion_timestamp
