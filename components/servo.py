@@ -27,13 +27,11 @@ class Servo:
     self.set_pulse_width(1000)
 
   def open_blinds(self):
-    print('opening blinds')
     self.open()
     utime.sleep(2)
     self.stop()
 
-  def close_blinds():
-    print('closing blinds')
+  def close_blinds(self):
     self.close()
     utime.sleep(2)
     self.stop()

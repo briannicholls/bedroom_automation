@@ -22,10 +22,19 @@ def activate_solenoid():
 
 blinds_state = 0 # 1=open, 0=closed
 
-fan_power_button.on_press(activate_solenoid)
+# Set the on_press callback for the manual fan button
+fan_power_button.set_on_press_callback(activate_solenoid)
+
+# Set the on_press / on_release callbacks for the manual blinds buttons
+blinds_open_button.set_on_press_callback(servo_motor.open())
+blinds_close_button.set_on_press_callback(servo_motor.close())
+blinds_open_button.set_on_release_callback(servo_motor.stop())
+blinds_close_button.set_on_release_callback(servo_motor.stop())
+
 
 # main loop
 while True:
+  utime.sleep(1)
 
   # Check if user disabled daylight checking, otherwise begin checking
   if photoresistor.is_checking_daylight and not(daylight_check_switch):
@@ -33,7 +42,3 @@ while True:
   elif not(photoresistor.is_checking_daylight) and daylight_check_switch:
     photoresistor.start_checking_daylight(DAYLIGHT_THRESHOLD, blinds_state, servo_motor)
 
-
-  # Check if user is pressing the blinds button
-  
-  
