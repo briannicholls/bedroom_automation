@@ -31,14 +31,7 @@ blinds_close_button.set_on_press_callback(servo_motor.close())
 blinds_open_button.set_on_release_callback(servo_motor.stop())
 blinds_close_button.set_on_release_callback(servo_motor.stop())
 
-
-# main loop
-while True:
-  utime.sleep(1)
-
-  # Check if user disabled daylight checking, otherwise begin checking
-  if photoresistor.is_checking_daylight and not(daylight_check_switch):
-    photoresistor.stop_checking_daylight()
-  elif not(photoresistor.is_checking_daylight) and daylight_check_switch:
-    photoresistor.start_checking_daylight(DAYLIGHT_THRESHOLD, blinds_state, servo_motor)
+# Set On/Off callbacks for the photoresistor daylight check switch
+daylight_check_switch.set_on_callback(photoresistor.start_checking_daylight(DAYLIGHT_THRESHOLD, blinds_state, servo_motor))
+daylight_check_switch.set_off_callback(photoresistor.stop_checking_daylight())
 
