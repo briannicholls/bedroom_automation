@@ -20,14 +20,11 @@ def activate_solenoid():
     utime.sleep(0.5)
     solenoid_relay.value(0)
 
-
 ###############
 # Main Program
 ###############
 
-# Set up triggers and callback functions for all switches and buttons
-
-#### Button Callbacks ####
+# Set up triggers for all switches and buttons
 
 # Manual fan button - activate solenoid on press
 fan_power_button.set_on_press_callback(activate_solenoid)
@@ -41,7 +38,7 @@ blinds_close_button.set_on_release_callback(servo_motor.stop)
 # Photoresistor daylight check switch - start/stop checking daylight on switch
 daylight_check_switch.set_on_callback(
     lambda: photoresistor.start_checking_daylight(
-        DAYLIGHT_THRESHOLD, blinds_state, servo_motor
+        DAYLIGHT_THRESHOLD, servo_motor
     )
 )
 daylight_check_switch.set_off_callback(photoresistor.stop_checking_daylight)
